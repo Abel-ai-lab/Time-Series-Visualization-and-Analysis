@@ -95,6 +95,17 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--ticker-book", choices=["none", "selected", "all"], default="selected")
     parser.add_argument("--book-max-tickers", type=int, help="Optional cap for ticker-book pages.")
     parser.add_argument("--book-batch-size", type=int, default=24)
+    parser.add_argument(
+        "--ticker-book-dpi",
+        type=int,
+        default=90,
+        help="DPI used when saving ticker-book PDF pages. Lower values produce smaller PDFs.",
+    )
+    parser.add_argument(
+        "--ticker-book-vector",
+        action="store_true",
+        help="Keep ticker-book line plots as vectors. Default rasterizes lines to reduce PDF size.",
+    )
     parser.add_argument("--random-seed", type=int, default=10)
     parser.add_argument("--title", default="ModernTSF Real Data Visualization and Analysis")
     parser.set_defaults(**defaults)
@@ -748,6 +759,7 @@ def generate_ticker_book(
 
     path = out_dir / f"ticker_book_{args.curve_frequency}_{args.ticker_book}_{len(book_symbols)}.pdf"
     freq_label = curve_frequency_label(args)
+    rasterized = not args.ticker_book_vector
     with PdfPages(path) as pdf:
         for batch in batched(book_symbols, args.book_batch_size):
             curve_close, curve_volume, curve_logret = read_representatives(args, batch)
@@ -758,14 +770,14 @@ def generate_ticker_book(
                 c = curve_close[close_col].replace(0, np.nan)
                 v = curve_volume[volume_col].replace(0, np.nan)
                 r = curve_logret[close_col]
-                axes[0].plot(c.index, c, color="#245C7A", lw=0.9)
+                axes[0].plot(c.index, c, color="#245C7A", lw=0.72, rasterized=rasterized)
                 axes[0].set_title(f"{symbol} true close")
                 axes[0].set_ylabel("close")
-                axes[1].plot(v.index, v, color="#2D8F85", lw=0.8)
+                axes[1].plot(v.index, v, color="#2D8F85", lw=0.66, rasterized=rasterized)
                 axes[1].set_yscale("log")
                 axes[1].set_title(f"{symbol} true volume")
                 axes[1].set_ylabel("volume log")
-                axes[2].plot(r.index, r, color="#A94E67", lw=0.65)
+                axes[2].plot(r.index, r, color="#A94E67", lw=0.52, rasterized=rasterized)
                 axes[2].axhline(0, color="black", lw=0.6)
                 finite = r[np.isfinite(r)]
                 if finite.size:
@@ -776,7 +788,7 @@ def generate_ticker_book(
                 axes[2].set_ylabel("logret")
                 fig.suptitle(f"{symbol}: Raw Close, Volume, and Log Return ({freq_label})", fontsize=15, fontweight="bold")
                 fig.tight_layout(rect=[0, 0, 1, 0.96])
-                pdf.savefig(fig)
+                pdf.savefig(fig, dpi=args.ticker_book_dpi)
                 plt.close(fig)
     return path
 
