@@ -86,6 +86,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--sample-rows", type=int, default=7000)
     parser.add_argument("--chunksize", type=int, default=900)
     parser.add_argument("--representative-count", type=int, default=12)
+    parser.add_argument(
+        "--curve-frequency",
+        choices=["native", "daily"],
+        default="native",
+        help="Resolution for curve plots and ticker books. Use native for hourly finance1000 data.",
+    )
     parser.add_argument("--ticker-book", choices=["none", "selected", "all"], default="selected")
     parser.add_argument("--book-max-tickers", type=int, help="Optional cap for ticker-book pages.")
     parser.add_argument("--book-batch-size", type=int, default=24)
@@ -268,17 +274,32 @@ def read_representatives(
     raw = pd.read_csv(args.raw_csv, usecols=[args.date_col] + close_cols + volume_cols)
     raw[args.date_col] = pd.to_datetime(raw[args.date_col], utc=True, errors="coerce")
     raw = raw.set_index(args.date_col).sort_index()
-    daily_close = raw[close_cols].resample("1D").last()
-    daily_volume = raw[volume_cols].resample("1D").sum()
-
     if args.logret_csv:
         logr = pd.read_csv(args.logret_csv, usecols=[args.date_col] + close_cols)
         logr[args.date_col] = pd.to_datetime(logr[args.date_col], utc=True, errors="coerce")
         logr = logr.set_index(args.date_col).sort_index()
-        daily_logret = logr[close_cols].resample("1D").sum()
     else:
-        daily_logret = np.log(daily_close.replace(0, np.nan)).diff()
-    return daily_close, daily_volume, daily_logret
+        logr = None
+
+    if args.curve_frequency == "daily":
+        close = raw[close_cols].resample("1D").last()
+        volume = raw[volume_cols].resample("1D").sum()
+        if logr is not None:
+            logret = logr[close_cols].resample("1D").sum()
+        else:
+            logret = np.log(close.replace(0, np.nan)).diff()
+    else:
+        close = raw[close_cols]
+        volume = raw[volume_cols]
+        if logr is not None:
+            logret = logr[close_cols].reindex(close.index)
+        else:
+            logret = np.log(close.replace(0, np.nan)).diff()
+    return close, volume, logret
+
+
+def curve_frequency_label(args: argparse.Namespace) -> str:
+    return "daily" if args.curve_frequency == "daily" else "native/hourly"
 
 
 def iter_raw_and_logret_chunks(
@@ -451,6 +472,7 @@ def plot_representative_curves(
     args: argparse.Namespace,
     figures_dir: Path,
 ) -> Path:
+    freq_label = curve_frequency_label(args)
     fig, axes = plt.subplots(len(symbols), 3, figsize=(15, 2.25 * len(symbols)), sharex="col", squeeze=False)
     for i, symbol in enumerate(symbols):
         close_col = column_for(symbol, args.close_suffix)
@@ -472,9 +494,9 @@ def plot_representative_curves(
             lo, hi = np.nanquantile(finite, [0.005, 0.995])
             if lo < hi:
                 axes[i, 2].set_ylim(lo, hi)
-        axes[i, 2].set_title(f"{symbol} true daily log return")
+        axes[i, 2].set_title(f"{symbol} true {freq_label} log return")
         axes[i, 2].set_ylabel("logret")
-    fig.suptitle("Real Historical Curves: Close, Volume, and Log Return", fontsize=15, fontweight="bold")
+    fig.suptitle(f"Real Historical Curves ({freq_label}): Close, Volume, and Log Return", fontsize=15, fontweight="bold")
     fig.tight_layout(rect=[0, 0, 1, 0.98])
     return save_fig(fig, figures_dir, "real_curves_by_ticker.png")
 
@@ -724,17 +746,18 @@ def generate_ticker_book(
     if not book_symbols:
         return None
 
-    path = out_dir / f"ticker_book_{args.ticker_book}_{len(book_symbols)}.pdf"
+    path = out_dir / f"ticker_book_{args.curve_frequency}_{args.ticker_book}_{len(book_symbols)}.pdf"
+    freq_label = curve_frequency_label(args)
     with PdfPages(path) as pdf:
         for batch in batched(book_symbols, args.book_batch_size):
-            daily_close, daily_volume, daily_logret = read_representatives(args, batch)
+            curve_close, curve_volume, curve_logret = read_representatives(args, batch)
             for symbol in batch:
                 close_col = column_for(symbol, args.close_suffix)
                 volume_col = column_for(symbol, args.volume_suffix)
                 fig, axes = plt.subplots(3, 1, figsize=(13, 8.5), sharex=True)
-                c = daily_close[close_col].replace(0, np.nan)
-                v = daily_volume[volume_col].replace(0, np.nan)
-                r = daily_logret[close_col]
+                c = curve_close[close_col].replace(0, np.nan)
+                v = curve_volume[volume_col].replace(0, np.nan)
+                r = curve_logret[close_col]
                 axes[0].plot(c.index, c, color="#245C7A", lw=0.9)
                 axes[0].set_title(f"{symbol} true close")
                 axes[0].set_ylabel("close")
@@ -749,9 +772,9 @@ def generate_ticker_book(
                     lo, hi = np.nanquantile(finite, [0.005, 0.995])
                     if lo < hi:
                         axes[2].set_ylim(lo, hi)
-                axes[2].set_title(f"{symbol} true daily log return")
+                axes[2].set_title(f"{symbol} true {freq_label} log return")
                 axes[2].set_ylabel("logret")
-                fig.suptitle(f"{symbol}: Raw Close, Volume, and Log Return", fontsize=15, fontweight="bold")
+                fig.suptitle(f"{symbol}: Raw Close, Volume, and Log Return ({freq_label})", fontsize=15, fontweight="bold")
                 fig.tight_layout(rect=[0, 0, 1, 0.96])
                 pdf.savefig(fig)
                 plt.close(fig)

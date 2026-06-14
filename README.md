@@ -8,7 +8,7 @@ The visualizer generates real data diagnostics, not only text summaries:
 
 - raw close/value and volume distributions;
 - log-return and volume-change distributions;
-- true historical close, volume, and daily log-return curves;
+- true historical close, volume, and native-frequency log-return curves;
 - log-return QQ plot, tail CCDF, and tail event frequencies;
 - cross-sectional close and volume structure over time;
 - per-ticker volatility, volume, and long-run return heterogeneity;
@@ -45,6 +45,7 @@ CUDA_VISIBLE_DEVICES= python scripts/run_visual_report.py \
   --date-col date \
   --close-suffix _close \
   --volume-suffix _volume \
+  --curve-frequency native \
   --ticker-book selected
 ```
 
@@ -70,7 +71,9 @@ This uses `configs/finance1000.cloud.json` and writes to the configured cloud ou
 
 - [Figure-first interpreted PDF report](reports/finance1000/finance1000_figure_first_report.pdf)
 - [Compact auto-generated PDF report](reports/finance1000/modern_tsf_visual_data_analysis.pdf)
-- [All-ticker PDF book](reports/finance1000/ticker_book_all_1000.pdf)
+- [Hourly selected-ticker PDF book](reports/finance1000/ticker_book_native_selected_12.pdf)
+- Full hourly all-ticker PDF book: generated on Pro6000 at `/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_hourly_20260614/ticker_book_native_all_1000.pdf` (about 239 MB, not committed to GitHub).
+- [Legacy daily all-ticker PDF book](reports/finance1000/ticker_book_all_1000.pdf)
 - [Real curves by ticker](reports/finance1000/figures/real_curves_by_ticker.png)
 - [Distribution panels](reports/finance1000/figures/real_distribution_panels.png)
 - [Log-return diagnostics](reports/finance1000/figures/log_return_diagnostics.png)
@@ -87,6 +90,7 @@ This uses `configs/finance1000.cloud.json` and writes to the configured cloud ou
 
 - Universe: 1000 US equity tickers.
 - Timestamps: 28,510 hourly rows.
+- Curve/ticker-book frequency: native hourly rows.
 - Span: 2015-01-02 to 2026-02-25 UTC.
 - Representative tickers in the compact report: AAPL, MSFT, AMZN, JPM, KMB, NVAX, GME, META, FCEL, MARA, CL, VZ.
 

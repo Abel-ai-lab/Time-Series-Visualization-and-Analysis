@@ -1,6 +1,6 @@
 {
   "pdf": "reports/finance1000/modern_tsf_visual_data_analysis.pdf",
-  "ticker_book": "reports/finance1000/ticker_book_all_1000.pdf",
+  "ticker_book": "reports/finance1000/ticker_book_native_selected_12.pdf",
   "figures": [
     "reports/finance1000/figures/real_curves_by_ticker.png",
     "reports/finance1000/figures/real_distribution_panels.png",
@@ -16,5 +16,12 @@
   ],
   "summary": "reports/finance1000/summary.json",
   "figure_first_pdf": "reports/finance1000/finance1000_figure_first_report.pdf",
-  "compact_pdf": "reports/finance1000/modern_tsf_visual_data_analysis.pdf"
+  "compact_pdf": "reports/finance1000/modern_tsf_visual_data_analysis.pdf",
+  "curve_frequency": "native/hourly",
+  "hourly_ticker_book_cloud_path": "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_hourly_20260614/ticker_book_native_all_1000.pdf",
+  "hourly_ticker_book_note": "Full hourly 1000-ticker PDF is not committed because it is about 239 MB, above GitHub normal file limits. Regenerate with scripts/run_finance1000_cloud.sh.",
+  "legacy_daily_ticker_book": "reports/finance1000/ticker_book_all_1000.pdf",
+  "hourly_selected_ticker_book": "reports/finance1000/ticker_book_native_selected_12.pdf",
+  "hourly_all_ticker_book_cloud_path": "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_hourly_20260614/ticker_book_native_all_1000.pdf",
+  "hourly_all_ticker_book_size_bytes": 249902994
 }

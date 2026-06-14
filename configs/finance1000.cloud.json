@@ -9,5 +9,6 @@
   "volume_suffix": "_volume",
   "sample_rows": 7000,
   "representative_count": 12,
+  "curve_frequency": "native",
   "ticker_book": "all"
 }

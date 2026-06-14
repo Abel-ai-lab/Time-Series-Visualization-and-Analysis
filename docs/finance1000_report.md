@@ -6,6 +6,7 @@ This repository includes generated report artifacts for the finance1000 hourly t
 
 - Universe: 1000 US equity tickers.
 - Timestamps: 28,510 hourly rows.
+- Correct plotting frequency: native hourly rows for curve and ticker-book views.
 - Time span: 2015-01-02 to 2026-02-25 UTC.
 - Raw table: `date` plus `1000 *_close` and `1000 *_volume` columns.
 - Log-return table: same shape, with close log returns and volume log changes.
@@ -20,7 +21,9 @@ Raw data is intentionally not committed. On Pro6000 it lives under:
 
 - `reports/finance1000/finance1000_figure_first_report.pdf`: primary figure-first report with interpretation notes.
 - `reports/finance1000/modern_tsf_visual_data_analysis.pdf`: compact auto-generated report.
-- `reports/finance1000/ticker_book_all_1000.pdf`: one page per ticker.
+- `reports/finance1000/ticker_book_native_selected_12.pdf`: committed hourly selected-ticker book.
+- Full hourly 1000-ticker book: `/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_hourly_20260614/ticker_book_native_all_1000.pdf` on Pro6000; not committed because it is about 239 MB.
+- `reports/finance1000/ticker_book_all_1000.pdf`: legacy daily-resampled book, kept for comparison only.
 - `reports/finance1000/figures/*.png`: key reusable figures.
 - `reports/finance1000/tables/*.csv`: distribution, cross-section, and per-ticker stats.
 - `reports/finance1000/summary.json`: machine-readable summary.
