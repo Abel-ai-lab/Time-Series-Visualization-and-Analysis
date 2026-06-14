@@ -1,0 +1,13 @@
+{
+  "raw_csv": "raw.csv",
+  "logret_csv": "logret.csv",
+  "ticker_file": null,
+  "ticker_column": "symbol",
+  "output_dir": "outputs/report",
+  "date_col": "date",
+  "close_suffix": "_close",
+  "volume_suffix": "_volume",
+  "sample_rows": 7000,
+  "representative_count": 12,
+  "ticker_book": "selected"
+}

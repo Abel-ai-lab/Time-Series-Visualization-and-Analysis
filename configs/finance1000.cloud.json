@@ -1,0 +1,13 @@
+{
+  "raw_csv": "/data/jm/tsorchestra_repro_20260610/finance1000_source/financial_hourly_1000_raw.csv",
+  "logret_csv": "/data/jm/tsorchestra_repro_20260610/finance1000_source/financial_hourly_1000_logret.csv",
+  "ticker_file": "/data/jm/tsorchestra_repro_20260610/finance1000_source/selected_tickers.csv",
+  "ticker_column": "symbol",
+  "output_dir": "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614",
+  "date_col": "date",
+  "close_suffix": "_close",
+  "volume_suffix": "_volume",
+  "sample_rows": 7000,
+  "representative_count": 12,
+  "ticker_book": "all"
+}

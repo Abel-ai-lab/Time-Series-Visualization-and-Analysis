@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modern-tsf-visualizer"
+version = "0.1.0"
+description = "Reproducible ModernTSF-style visual data reports for wide time-series CSV datasets."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "matplotlib>=3.7",
+  "numpy>=1.24",
+  "pandas>=2.0",
+]
+
+[project.scripts]
+modern-tsf-visualizer = "modern_tsf_visualizer.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["modern_tsf_visualizer*"]
