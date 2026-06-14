@@ -1,18 +1,20 @@
 {
-  "pdf": "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/modern_tsf_visual_data_analysis.pdf",
-  "ticker_book": "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/ticker_book_all_1000.pdf",
+  "pdf": "reports/finance1000/modern_tsf_visual_data_analysis.pdf",
+  "ticker_book": "reports/finance1000/ticker_book_all_1000.pdf",
   "figures": [
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/figures/real_curves_by_ticker.png",
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/figures/real_distribution_panels.png",
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/figures/log_return_diagnostics.png",
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/figures/cross_section_time_structure.png",
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/figures/per_ticker_heterogeneity.png",
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/figures/logret_volatility_heatmaps.png"
+    "reports/finance1000/figures/real_curves_by_ticker.png",
+    "reports/finance1000/figures/real_distribution_panels.png",
+    "reports/finance1000/figures/log_return_diagnostics.png",
+    "reports/finance1000/figures/cross_section_time_structure.png",
+    "reports/finance1000/figures/per_ticker_heterogeneity.png",
+    "reports/finance1000/figures/logret_volatility_heatmaps.png"
   ],
   "tables": [
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/tables/per_ticker_stats.csv",
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/tables/cross_section_daily.csv",
-    "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/tables/distribution_stats.csv"
+    "reports/finance1000/tables/per_ticker_stats.csv",
+    "reports/finance1000/tables/cross_section_daily.csv",
+    "reports/finance1000/tables/distribution_stats.csv"
   ],
-  "summary": "/data/jm/tsorchestra_repro_20260610/analysis_outputs/finance1000_modern_tsf_visualizer_all_20260614/summary.json"
+  "summary": "reports/finance1000/summary.json",
+  "figure_first_pdf": "reports/finance1000/finance1000_figure_first_report.pdf",
+  "compact_pdf": "reports/finance1000/modern_tsf_visual_data_analysis.pdf"
 }

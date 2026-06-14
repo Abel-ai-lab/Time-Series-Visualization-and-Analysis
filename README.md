@@ -13,7 +13,7 @@ The visualizer generates real data diagnostics, not only text summaries:
 - cross-sectional close and volume structure over time;
 - per-ticker volatility, volume, and long-run return heterogeneity;
 - daily log-return and rolling-volatility heatmaps;
-- compact PDF report and optional all-ticker PDF book.
+- figure-first interpreted PDF report and optional all-ticker PDF book.
 
 ## Repository Layout
 
@@ -68,7 +68,8 @@ This uses `configs/finance1000.cloud.json` and writes to the configured cloud ou
 
 ## Included Finance1000 Artifacts
 
-- [Compact PDF report](reports/finance1000/modern_tsf_visual_data_analysis.pdf)
+- [Figure-first interpreted PDF report](reports/finance1000/finance1000_figure_first_report.pdf)
+- [Compact auto-generated PDF report](reports/finance1000/modern_tsf_visual_data_analysis.pdf)
 - [All-ticker PDF book](reports/finance1000/ticker_book_all_1000.pdf)
 - [Real curves by ticker](reports/finance1000/figures/real_curves_by_ticker.png)
 - [Distribution panels](reports/finance1000/figures/real_distribution_panels.png)

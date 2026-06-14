@@ -18,7 +18,8 @@ Raw data is intentionally not committed. On Pro6000 it lives under:
 
 ## Included Artifacts
 
-- `reports/finance1000/modern_tsf_visual_data_analysis.pdf`: compact report.
+- `reports/finance1000/finance1000_figure_first_report.pdf`: primary figure-first report with interpretation notes.
+- `reports/finance1000/modern_tsf_visual_data_analysis.pdf`: compact auto-generated report.
 - `reports/finance1000/ticker_book_all_1000.pdf`: one page per ticker.
 - `reports/finance1000/figures/*.png`: key reusable figures.
 - `reports/finance1000/tables/*.csv`: distribution, cross-section, and per-ticker stats.
