@@ -39,6 +39,7 @@
     "assets/zero_shot/volume_logret_distribution_scatter.png",
     "assets/zero_shot/volume_logret_sample_curves.png",
     "data/diagnostic_summary_unified_logret.csv",
-    "data/zero_shot_vs_full_finetune_metrics.csv"
+    "data/zero_shot_vs_full_finetune_metrics.csv",
+    "timesfm_log_return_failure_report.md"
   ]
 }

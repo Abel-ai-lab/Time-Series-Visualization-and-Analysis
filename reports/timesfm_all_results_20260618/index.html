@@ -16,6 +16,7 @@ th{background:#f0f2f5}.note{color:#555}.grid{display:grid;grid-template-columns:
 <p class='lead'>统一整理 TimesFM 在 finance1000 hourly 数据上的 zero-shot、scale test、volume/raw-volume、full fine-tune 结果。所有最终指标都在真实评估空间计算；raw_volume 统一转成 volume log-return 后评估。</p>
 <nav>
 <a href='#summary'>Summary</a>
+<a href='#failure-report'>Failure Report</a>
 <a href='#zero'>Zero-shot Metrics</a>
 <a href='#scale'>Close Scale Test</a>
 <a href='#volume-zero'>Volume Zero-shot</a>
@@ -23,6 +24,9 @@ th{background:#f0f2f5}.note{color:#555}.grid{display:grid;grid-template-columns:
 <a href='#predictions'>Predictions</a>
 <a href='#attachments'>Reports</a>
 </nav>
+<h2 id='failure-report'>Log-return Failure Report</h2>
+<p class='lead'>Deck-ready synthesis: TimesFM collapses close log-return forecasts toward zero, underperforms a derived exact-zero baseline in zero-shot mode, and remains too weak after fine-tuning to support a foundation-model alpha claim.</p>
+<ul class='links'><li><a href='timesfm_log_return_failure_report.md'>Open the comprehensive markdown report</a></li></ul>
 <h2 id='summary'>Summary</h2>
 <div class='grid'><figure><img src='assets/summary/zero_shot_volume_comparison.png'><div class='caption'>Zero-shot target comparison</div></figure><figure><img src='assets/summary/scale_test_close_logret.png'><div class='caption'>Close log-return x1/x100/x500 scale test</div></figure><figure><img src='assets/summary/finetune_ic_delta.png'><div class='caption'>Zero-shot to full fine-tune IC movement</div></figure><figure><img src='assets/summary/finetune_direction_accuracy.png'><div class='caption'>Nonzero direction accuracy before and after fine-tune</div></figure></div><p class='note'>核心结论：close log-return 的 zero-shot 对尺度放大不敏感，x1/x100/x500 指标几乎一致；volume_logret 和 raw_volume→volume_log_return 在 zero-shot 已有正信号，full fine-tune 后 IC 与方向准确率提升最明显。</p>
 
