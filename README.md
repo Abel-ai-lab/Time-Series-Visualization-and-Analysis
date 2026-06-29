@@ -14,6 +14,7 @@ The visualizer generates real data diagnostics, not only text summaries:
 - per-ticker volatility, volume, and long-run return heterogeneity;
 - daily log-return and rolling-volatility heatmaps;
 - figure-first interpreted PDF report and optional all-ticker PDF book.
+- zero-baseline / epsilon-baseline loss-landscape analysis for ticker panels.
 
 ## Repository Layout
 
@@ -23,6 +24,8 @@ scripts/                        Stable entrypoints for humans and agents
 configs/                        Example JSON configs
 references/data_schema.md       Input schema reference
 reports/finance1000/            Generated finance1000 figures, PDFs, tables, summary
+reports/zero_baseline_q05q95_100tickers/
+                                Example loss-landscape report and figures
 AGENTS.md                       Agent-facing invocation guide
 docs/                           Report notes and portable skill instructions
 ```
@@ -87,6 +90,30 @@ This uses `configs/finance1000.cloud.json` and writes to the configured cloud ou
 - [Distribution stats](reports/finance1000/tables/distribution_stats.csv)
 - [Summary JSON](reports/finance1000/summary.json)
 - [Manifest JSON](reports/finance1000/manifest.json)
+
+## Loss Landscape Workflow
+
+The repository also includes a reusable workflow for studying whether near-zero forecasts are
+strong baselines under different losses and similarity metrics.
+
+Included example:
+
+- [100-ticker q05/q95 intro report](reports/zero_baseline_q05q95_100tickers/intro_report.html)
+
+Workflow files:
+
+- `scripts/loss_landscape/run_loss_landscape.py`
+- `scripts/loss_landscape/merge_loss_landscape_shards.py`
+- `scripts/loss_landscape/build_intro_report.py`
+- `docs/workflows/zero_baseline_loss_landscape.md`
+
+This workflow:
+
+1. selects tickers by a ranking statistic, such as volatility;
+2. builds ticker-wise bucket ladders from either full min/max or q05/q95 ranges;
+3. defines epsilon baselines directly from the bucket ladder;
+4. computes metric percentiles and metric-agreement matrices;
+5. generates a report with tables, charts, and case examples.
 
 ## Finance1000 Snapshot
 
