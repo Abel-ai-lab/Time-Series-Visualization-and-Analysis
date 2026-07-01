@@ -21,6 +21,10 @@ The `100 ticker q05/q95` showcase report is included under:
 
 - `reports/zero_baseline_q05q95_100tickers/`
 
+The full merged `1000 ticker q05/q95` report is included under:
+
+- `reports/zero_baseline_q05q95_1000tickers/`
+
 Included workflow entrypoints in this repo:
 
 - `scripts/loss_landscape/run_q05q95_exact11.py`

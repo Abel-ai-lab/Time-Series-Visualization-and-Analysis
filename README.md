@@ -26,6 +26,8 @@ references/data_schema.md       Input schema reference
 reports/finance1000/            Generated finance1000 figures, PDFs, tables, summary
 reports/zero_baseline_q05q95_100tickers/
                                 Example loss-landscape report and figures
+reports/zero_baseline_q05q95_1000tickers/
+                                Full 1000-ticker q05/q95 report and figures
 AGENTS.md                       Agent-facing invocation guide
 docs/                           Report notes and portable skill instructions
 ```
@@ -99,6 +101,7 @@ strong baselines under different losses and similarity metrics.
 Included example:
 
 - [100-ticker q05/q95 intro report](reports/zero_baseline_q05q95_100tickers/intro_report.html)
+- [1000-ticker q05/q95 intro report](reports/zero_baseline_q05q95_1000tickers/intro_report.html)
 
 Workflow files:
 
